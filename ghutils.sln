@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurveSlope", "CurveSlope\Cu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarySelector", "BinarySelector\BinarySelector.csproj", "{DA9AAEA9-A9E6-4BCD-95F1-29183A74D497}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OffsetClosed", "OffsetClosed\OffsetClosed.csproj", "{04C41964-FB5F-4617-A007-ECAC7A7BC368}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DA9AAEA9-A9E6-4BCD-95F1-29183A74D497}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA9AAEA9-A9E6-4BCD-95F1-29183A74D497}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA9AAEA9-A9E6-4BCD-95F1-29183A74D497}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04C41964-FB5F-4617-A007-ECAC7A7BC368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04C41964-FB5F-4617-A007-ECAC7A7BC368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04C41964-FB5F-4617-A007-ECAC7A7BC368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04C41964-FB5F-4617-A007-ECAC7A7BC368}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
