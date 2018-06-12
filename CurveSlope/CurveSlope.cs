@@ -36,8 +36,8 @@ namespace CurveSlope
             Rhino.Geometry.Point3d startPoint = curveToMeasure.PointAtStart;
             Rhino.Geometry.Point3d endPoint = curveToMeasure.PointAtEnd;
 
-            double dY = endPoint.Y / startPoint.Y;
-            double dX = endPoint.X / startPoint.X;
+            double dY = endPoint.Y - startPoint.Y;
+            double dX = endPoint.X - startPoint.X;
 
             if (dX == 0)
             {
