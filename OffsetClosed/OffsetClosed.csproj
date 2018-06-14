@@ -68,4 +68,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)\$(ProjectName).gha"
+
+Copy "$(TargetPath)" "$(SolutionDir)\_gha\$(ProjectName).gha"
+
+Erase "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

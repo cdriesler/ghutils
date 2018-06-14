@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using OffsetClosed.Properties;
@@ -20,8 +21,9 @@ namespace OffsetClosed
 
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddCurveParameter("Curve", "N", "Number of objects to generate list for.", GH_ParamAccess.item);
+            pManager.AddCurveParameter("Curve", "C", "Curve to offset.", GH_ParamAccess.item);
             pManager.AddNumberParameter("Distance", "D", "Distance to offset curve.", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Both Sides", "B", "Set to true to offset both sides.", GH_ParamAccess.item, false);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -31,6 +33,9 @@ namespace OffsetClosed
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            bool centeredBool = false;
+            DA.GetData(2, ref centeredBool);
+
             double distance = 0;
             DA.GetData(1, ref distance);
 
@@ -43,6 +48,7 @@ namespace OffsetClosed
             Rhino.Geometry.Plane defaultPlane = Plane.WorldXY;
 
             Rhino.Geometry.Curve[] offsetCurves = curveToOffset.Offset(defaultPlane, distance, 0.1, CurveOffsetCornerStyle.Sharp);
+            Rhino.Geometry.Curve[] mirroredOffsetCurves = curveToOffset.Offset(defaultPlane, distance * -1, 0.1, CurveOffsetCornerStyle.Sharp);
 
             if (offsetCurves.Length > 1)
             {
@@ -51,17 +57,41 @@ namespace OffsetClosed
                 return;
             }
 
-            Rhino.Geometry.Curve offsetCurve = offsetCurves[0];
+            if (centeredBool == true && mirroredOffsetCurves.Length > 1)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Curve is not clean.");
 
+                return;
+            }
+
+            Rhino.Geometry.Curve offsetCurve = offsetCurves[0];
             Rhino.Geometry.Point3d newStartPoint = offsetCurve.PointAtStart;
             Rhino.Geometry.Point3d newEndPoint = offsetCurve.PointAtEnd;
 
-            Rhino.Geometry.Curve startCapCurve = new Rhino.Geometry.LineCurve(firstStartPoint, newStartPoint) as Rhino.Geometry.Curve;
-            Rhino.Geometry.Curve endCapCurve = new Rhino.Geometry.LineCurve(firstEndPoint, newEndPoint) as Rhino.Geometry.Curve;
+            Rhino.Geometry.Curve mirroredOffsetCurve = mirroredOffsetCurves[0];
+            Rhino.Geometry.Point3d mirroredNewStartPoint = mirroredOffsetCurve.PointAtStart;
+            Rhino.Geometry.Point3d mirroredNewEndPoint = mirroredOffsetCurve.PointAtEnd;
+
+            Rhino.Geometry.Curve startCapCurve = null;
+            Rhino.Geometry.Curve endCapCurve = null;
 
             List<Rhino.Geometry.Curve> regionCurvePieces = new List<Curve>();
 
-            regionCurvePieces.Add(curveToOffset);
+            if (centeredBool == false)
+            {
+                startCapCurve = new Rhino.Geometry.LineCurve(firstStartPoint, newStartPoint) as Rhino.Geometry.Curve;
+                endCapCurve = new Rhino.Geometry.LineCurve(firstEndPoint, newEndPoint) as Rhino.Geometry.Curve;
+
+                regionCurvePieces.Add(curveToOffset);
+            }
+            else if (centeredBool == true)
+            {
+                startCapCurve = new Rhino.Geometry.LineCurve(mirroredNewStartPoint, newStartPoint) as Rhino.Geometry.Curve;
+                endCapCurve = new Rhino.Geometry.LineCurve(mirroredNewEndPoint, newEndPoint) as Rhino.Geometry.Curve;
+
+                regionCurvePieces.Add(mirroredOffsetCurve);
+            }
+
             regionCurvePieces.Add(startCapCurve);
             regionCurvePieces.Add(offsetCurve);
             regionCurvePieces.Add(endCapCurve);
