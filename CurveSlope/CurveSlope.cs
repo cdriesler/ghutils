@@ -33,6 +33,16 @@ namespace CurveSlope
             Rhino.Geometry.Curve curveToMeasure = null;
             DA.GetData(0, ref curveToMeasure);
 
+            try
+            {
+                curveToMeasure.GetLength();
+            }
+            catch (Exception e)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, e.ToString());
+                return;
+            }
+
             Rhino.Geometry.Point3d startPoint = curveToMeasure.PointAtStart;
             Rhino.Geometry.Point3d endPoint = curveToMeasure.PointAtEnd;
 
