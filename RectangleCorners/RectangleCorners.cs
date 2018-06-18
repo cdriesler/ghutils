@@ -42,6 +42,9 @@ namespace RectangleCorners
 
             List<Rhino.Geometry.Point2d> originalPoints = new List<Point2d>();
 
+            List<double> xVals = new List<double>();
+            List<double> yVals = new List<double>();
+
             if (closedBool != true || spans != 4 || degree != 1)
             {
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Input curve is not a closed, linear quadrilateral.");
@@ -54,6 +57,9 @@ namespace RectangleCorners
                 Rhino.Geometry.Point3d cornerPoint = rectangle.PointAt(rectangle.SpanDomain(i).Min);
                 Rhino.Geometry.Point2d flattenedCornerPoint = new Rhino.Geometry.Point2d(cornerPoint);
                 originalPoints.Add(flattenedCornerPoint);
+
+                xVals.Add(flattenedCornerPoint.X);
+                yVals.Add(flattenedCornerPoint.Y);
             }
 
             Rhino.Geometry.LineCurve testCurveA = new Rhino.Geometry.LineCurve(originalPoints[0], originalPoints[2]);
@@ -64,19 +70,19 @@ namespace RectangleCorners
                 AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, "Input curve is not orthogonal, results are not guaranteed.");
             }
 
-            Rhino.Geometry.BoundingBox rectangleBounds = rectangle.GetBoundingBox(false);
-            Rhino.Geometry.Point3d rectangleCenterPoint = rectangleBounds.Center;
+            Rhino.Geometry.Point2d topRightPoint = new Rhino.Geometry.Point2d(xVals.Max(), yVals.Max());
+            DA.SetData(0, topRightPoint);
 
-            //Interval rangeAsDomain = new Interval(0, 1);
+            Rhino.Geometry.Point2d topLeftPoint = new Rhino.Geometry.Point2d(xVals.Min(), yVals.Max());
+            DA.SetData(1, topLeftPoint);
 
-            //Just get all X and Y values, construct points from combinations of max/min values. (Top right in (xMax, yMax), etc.)
+            Rhino.Geometry.Point2d bottomLeftPoint = new Rhino.Geometry.Point2d(xVals.Min(), yVals.Min());
+            DA.SetData(2, bottomLeftPoint);
 
-            //Rhino.Geometry.Curve workingRectangle = rectangle.DuplicateCurve();
-            //workingRectangle.Rotate(0.25, Vector3d.ZAxis, rectangleCenterPoint);
+            Rhino.Geometry.Point2d bottomRightPoint = new Rhino.Geometry.Point2d(xVals.Max(), yVals.Min());
+            DA.SetData(3, bottomRightPoint);
 
-            //docs = docs.OrderBy(d => docsIds.IndexOf(d.Id)).ToList();
-
-
+            //TODO: Check for rotation. No warnings will be raised if input is orthogonal rotated object, but corners will not be accurate.
         }
 
         protected override System.Drawing.Bitmap Icon
