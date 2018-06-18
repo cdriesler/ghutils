@@ -67,6 +67,8 @@ namespace RectangleCorners
             Rhino.Geometry.BoundingBox rectangleBounds = rectangle.GetBoundingBox(false);
             Rhino.Geometry.Point3d rectangleCenterPoint = rectangleBounds.Center;
 
+            //Interval rangeAsDomain = new Interval(0, 1);
+
             //Just get all X and Y values, construct points from combinations of max/min values. (Top right in (xMax, yMax), etc.)
 
             //Rhino.Geometry.Curve workingRectangle = rectangle.DuplicateCurve();
