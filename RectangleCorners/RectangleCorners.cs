@@ -25,6 +25,7 @@ namespace RectangleCorners
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
+            pManager.AddPointParameter("Points", "P", "All points in ABCD order.", GH_ParamAccess.list);
             pManager.AddPointParameter("Top Right", "A", "Top right corner point.", GH_ParamAccess.item);
             pManager.AddPointParameter("Top Left", "B", "Top left corner point.", GH_ParamAccess.item);
             pManager.AddPointParameter("Bottom Left", "C", "Bottom left corner point.", GH_ParamAccess.item);
@@ -71,16 +72,24 @@ namespace RectangleCorners
             }
 
             Rhino.Geometry.Point2d topRightPoint = new Rhino.Geometry.Point2d(xVals.Max(), yVals.Max());
-            DA.SetData(0, topRightPoint);
+            DA.SetData(1, topRightPoint);
 
             Rhino.Geometry.Point2d topLeftPoint = new Rhino.Geometry.Point2d(xVals.Min(), yVals.Max());
-            DA.SetData(1, topLeftPoint);
+            DA.SetData(2, topLeftPoint);
 
             Rhino.Geometry.Point2d bottomLeftPoint = new Rhino.Geometry.Point2d(xVals.Min(), yVals.Min());
-            DA.SetData(2, bottomLeftPoint);
+            DA.SetData(3, bottomLeftPoint);
 
             Rhino.Geometry.Point2d bottomRightPoint = new Rhino.Geometry.Point2d(xVals.Max(), yVals.Min());
-            DA.SetData(3, bottomRightPoint);
+            DA.SetData(4, bottomRightPoint);
+
+            List<Rhino.Geometry.Point2d> orderedPoints = new List<Point2d>();
+            orderedPoints.Add(topRightPoint);
+            orderedPoints.Add(topLeftPoint);
+            orderedPoints.Add(bottomLeftPoint);
+            orderedPoints.Add(bottomRightPoint);
+
+            DA.SetDataList(0, orderedPoints);
 
             //TODO: Check for rotation. No warnings will be raised if input is orthogonal rotated object, but corners will not be accurate.
         }
