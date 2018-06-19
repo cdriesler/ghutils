@@ -7,3 +7,5 @@ OffsetClosed > Returns the region created by a curve, its offset, and their conn
 RectangleCorners > Identifies relative positions of rectangle corners. (i.e. "top left" and "bottom right")
 
 NumbersToDomain > Given a list of numbers, returns their range as a Grasshopper domain.
+
+LineSDLBS > Same thing as "Line SDL" but also extends the curve in the opposite direction.

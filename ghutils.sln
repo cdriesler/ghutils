@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumbersToDomain", "NumbersToDomain\NumbersToDomain.csproj", "{08A58214-C0CD-4A76-9A4A-9D7417426D6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LineSDLBS", "LineSDLBS\LineSDLBS.csproj", "{07263562-ABD8-4C49-857C-E35D89F0130B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{08A58214-C0CD-4A76-9A4A-9D7417426D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08A58214-C0CD-4A76-9A4A-9D7417426D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08A58214-C0CD-4A76-9A4A-9D7417426D6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07263562-ABD8-4C49-857C-E35D89F0130B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07263562-ABD8-4C49-857C-E35D89F0130B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07263562-ABD8-4C49-857C-E35D89F0130B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07263562-ABD8-4C49-857C-E35D89F0130B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
