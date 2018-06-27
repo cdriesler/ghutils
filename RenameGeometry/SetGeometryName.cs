@@ -62,8 +62,7 @@ namespace RenameGeometry
 
         protected override System.Drawing.Bitmap Icon
         {
-            get
-            { return null; /* Properties.Resources.icon; */ }
+            get { return Properties.Resources.WriteName; }
         }
 
         public override Guid ComponentGuid

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RenameGeometry.Properties;
 
 using Rhino;
 using Rhino.Geometry;
@@ -49,7 +50,18 @@ namespace RenameGeometry
 
             if (activate)
             {
-                newID = RhinoDoc.ActiveDoc.Objects.Add(g, atts).ToString();
+                GH_Point p = g as GH_Point;
+                if (p != null)
+                {
+                    GeometryBase geo = GH_Convert.ToGeometryBase(p);
+                    newID = RhinoDoc.ActiveDoc.Objects.Add(geo, atts).ToString();
+                }
+                GH_Curve c = g as GH_Curve;
+                if (c != null)
+                {
+                    GeometryBase geo = GH_Convert.ToGeometryBase(c);
+                    newID = RhinoDoc.ActiveDoc.Objects.Add(geo, atts).ToString();
+                }
             }
 
             DA.SetData(0, newID);
@@ -57,8 +69,7 @@ namespace RenameGeometry
 
         protected override System.Drawing.Bitmap Icon
         {
-            get
-            { return null; /* Properties.Resources.icon; */ }
+            get { return Properties.Resources.BakeName; }
         }
 
         public override Guid ComponentGuid

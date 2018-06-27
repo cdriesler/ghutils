@@ -13,6 +13,9 @@ Given a list of numbers, returns their range as a Grasshopper domain.
 **RectangleCorners** `[Curve][Analysis]`\
 Identifies relative positions of rectangle corners. (i.e. "top left" and "bottom right")
 
+**RenameGeometry** `[Params][Util]`\
+Suite of tools to manage the Attributes.Name property in grasshopper. Grasshopper only operates on stripped down geometry, so names can't be "actually" assigned, but this helps attempt to keep everything in line.
+
 ---
 
 **OffsetClosed** `[Curve][Util]`\

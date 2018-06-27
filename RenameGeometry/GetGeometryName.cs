@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using NumbersToDomain.Properties;
+using RenameGeometry.Properties;
 
 using Grasshopper.Kernel;
 using Rhino;
@@ -44,8 +44,7 @@ namespace RenameGeometry
 
         protected override System.Drawing.Bitmap Icon
         {
-            get
-            { return null; /* Properties.Resources.icon; */ }
+            get { return Properties.Resources.ReadName; }
         }
 
         public override Guid ComponentGuid
